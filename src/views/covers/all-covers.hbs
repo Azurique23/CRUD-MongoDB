@@ -1,0 +1,42 @@
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+    }
+
+    main{
+        
+        
+        width: 200px;
+
+    }
+    div{
+        
+        flex: 1 1 200px;
+        text-align: center;
+        border: solid;
+    }
+
+</style>
+
+<main>
+
+    {{#each covers}}
+    <div >
+        <h4>{{tittle}}</h4>
+
+        <h5>{{description}}</h5>
+
+        <a href="/covers/edit/{{_id}}">edita</a>
+        
+        <form action="/covers/delete/{{_id}}?_method=DELETE" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit">
+                DELETE
+            </button>
+        </form>
+        </div>
+    {{/each}}
+
+
+</main>

@@ -1,0 +1,31 @@
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        padding-top: 200px;
+    }
+    form{
+        display: block;
+        text-align: center;
+        width: 350px;
+        
+
+    }
+    *{
+
+        font-size: 20px;
+        margin:10px;
+    }
+</style>
+<form action="?_method=put" method="post">
+    <input type="hidden" name="_id" value="{{editCover._id}}">
+    <input type="text" name="tittle" value="{{editCover.tittle}}">
+    <input type="text" name="description" value="{{editCover.description}}">
+    <button type="submit">
+        Submit
+    </button>
+</form>
+
+
+
+

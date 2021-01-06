@@ -1,15 +1,7 @@
 <style>
-    body{
-        display: flex;
-        justify-content: center;
-    }
 
-    main{
-        
-        
-        width: 200px;
 
-    }
+    
     div{
         
         flex: 1 1 200px;
@@ -30,7 +22,6 @@
         <a href="/covers/edit/{{_id}}">edita</a>
         
         <form action="/covers/delete/{{_id}}?_method=DELETE" method="post">
-            <input type="hidden" name="_method" value="DELETE">
             <button type="submit">
                 DELETE
             </button>

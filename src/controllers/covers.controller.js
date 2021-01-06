@@ -1,15 +1,16 @@
 const cover = require("../models/cover");
-
 const coversCtrl = {};
 
 //Adiciona capas
 coversCtrl.coverPageForm = (req, res) => {
-  res.render("./covers/new-cover");
+  res.render("covers/new-cover");
 };
 coversCtrl.addCovers = async (req, res) => {
   const { tittle, description } = req.body;
   const newCover = new cover({ tittle, description });
   await newCover.save();
+
+  req.flash('deu_certo','CAPA ADICIONADA' )// pimeiro a variavel(que podeser reutilizada) depois mensagem 
   res.redirect("/covers/add");
 };
 
@@ -22,19 +23,22 @@ coversCtrl.renderCovers = async (req, res) => {
 // edita capas
 coversCtrl.coverEditPage = async (req, res) => {
   const editCover = await cover.findById(req.params.id).lean();
-    console.log(editCover._id)
   res.render("./covers/edit-covers", { editCover });
 };
-coversCtrl.coverEdit = async(req, res) => {
-  console.log(req.body);
-    const {_id, tittle, description} = req.body;
-    await cover.findByIdAndUpdate(_id, {tittle:tittle, description: description});
+coversCtrl.coverEdit = async (req, res) => {
+  const { _id, tittle, description } = req.body;
+  await cover.findOneAndUpdate(_id, {
+    tittle: tittle,
+    description: description
+  });
+  req.flash('deu_certo', 'CAPA EDITADA')
   res.redirect("/covers");
 };
 
 // deleta capas
 coversCtrl.coverDelete = async (req, res) => {
   await cover.findByIdAndDelete(req.params.id);
+  req.flash('deu_certo', 'CAPA DELETADA')
   res.redirect("/covers");
 };
 

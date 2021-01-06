@@ -3,24 +3,20 @@ const bcrypt = require('bcrypt')
 
 
 const userSechema = new Schema ({
-    name: {type: String, required:true }, 
-    email:{type: String, required: true},
-    username: {type: String, required: true},
-    password: {typer:  String, required:true}
-
-
-},{
-    timestamps : true
+    name: { type: String, required:true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    date: { type: Date, default: Date.now },
 });
 
-userSechema.method.encrypPassword = password =>{
-    const salt = await enrypt.getSalt(10);
-     return await encrypt.hash(password, salt);
+userSechema.methods.encrypPassword = async (password) =>{
+    const salt = await bcrypt.genSalt(10);
+     return await bcrypt.hash(password, salt);
 }
 
-userSechema.method.matchPassword = function(password){
-    return await encrypt.compare(password, this.password);
+userSechema.methods.matchPassword = async function(password){
+    return await bcrypt.compare(password, this.password);
 }
 
 
-module.exports = model('cover', userSechema);
+module.exports = model('user', userSechema);

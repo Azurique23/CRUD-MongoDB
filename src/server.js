@@ -6,6 +6,8 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 const flash = require("connect-flash");
 const expSession = require("express-session");
+const passport = require('passport')
+require("./config/passport");
 //Init
 const app = express();
 
@@ -36,10 +38,15 @@ app.use(
   })
 );
 app.use(flash());
+app.use(passport.initialize())
+app.use(passport.session())
 
 //Global Variables
 app.use((req, res, next) => {
   res.locals.deu_certo = req.flash("deu_certo"); // variavel da mensagem global
+  res.locals.error = req.flash('error')
+  res.locals.errors = req.flash('errors')
+  res.locals.user = req.user || null;// Informção global do usuaario
   next();
 });
 

@@ -38,9 +38,13 @@
 </style>
 
 <div>
-    
+    {{#if user}}
     <a href="/covers/add">ADD</a>
     <a href="/covers">COVERS</a>
+    <a href="/user/logout">logout</a>
+    {{else}}
     <a href="/signup">SIGNUP</a>
     <a href="/login">LOGIN</a>
+    {{/if}}
+    
 </div>

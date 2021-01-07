@@ -5,6 +5,7 @@ const {
   signup,
   loginPage,
   login,
+  logout,
 } = require("../controllers/users.controller");
 
 // cadastro de usuario
@@ -13,6 +14,9 @@ router.post("/signup", signup); // recerber dados
 
 // login de usuario
 router.get("/login", loginPage);
-router.post("/login", login);
+router.post("/user/login", login);
+
+// logout
+router.get("/user/logout", logout);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const user = require("../models/user");
+const passport = require("passport");
 const usersCtrl = {};
 
 usersCtrl.signupPage = (req, res) => {
@@ -36,27 +37,15 @@ usersCtrl.loginPage = (req, res) => {
   res.render("users/login-page");
 };
 
-usersCtrl.login = async (req, res) => {
-  const { email, password } = req.body;
-  const emailExist = await user.findOne(
-    { email: email },
-    { _id: 0, email: 1, password: 1 }
-  );
+usersCtrl.login = passport.authenticate("local", {
+  successRedirect: "/covers",
+  failureRedirect: "/login",
+  failureFlash: true,
+});
 
-  if (emailExist) {
-    const result = await emailExist.matchPassword(password);
-
-    if (result) {
-      req.flash("deu_certo", "Logado Com sucesso");
-      res.render('home')  ;
-    } else {
-      errors = ["Email ou senha icorreto"];
-      res.render("users/login-page", { errors, email });
-    }
-  } else {
-    errors = ["Email ou senha icorreto"];
-    res.render("users/login-page", { errors, email });
-  }
+usersCtrl.logout = (req, res) => {
+  req.logout();
+  res.redirect('/');
 };
 
 module.exports = usersCtrl;
